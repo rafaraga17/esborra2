@@ -7,8 +7,10 @@
  */
 
 import React, { useState } from 'react';
-
+import { Switch } from 'react-native-paper';
 import { TextInput, Button } from 'react-native-paper';
+import { Chip } from 'react-native-paper';
+import { Surface } from 'react-native-paper';
 
 import {
   SafeAreaView,
@@ -58,7 +60,9 @@ const Section = ({ children, title }) => {
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const [text, setText] = useState("");
+  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
 
+  const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
@@ -73,34 +77,53 @@ const App = () => {
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <Header />
-        <TextInput
-          mode='outlined'
-          label='Estanislao'
-          placeholder='Hola guapa' />
-        <Button icon="home" mode="contained" Press={() => console.log('Pressed')}>
-          Press me
-        </Button>
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="Primer Pas">
-            Tu numero lo borré
+          <Section style={styles.sectionTitle} title='TextInput(email)'>
 
+            <TextInput
+              mode='outlined'
+              placeholder='                                                                                   ' />
           </Section>
-          <Section title="Mira els teus cambis">
-            <ReloadInstructions />
+          <Section style={styles.sectionTitle} title='Button(amb text i icona)'>
+            <View style={{ flexDirection: 'column', justifyContent:'center' }}>
+
+              <Button icon="alien" uppercase={false} mode="contained" onPress={() => console.log('Pressed')}>
+                Alien
+              </Button>
+              <Button icon="alien" mode="contained" labelStyle={{ color: 'black' }} onPress={() => console.log('Pressed')}>
+                Alien
+              </Button>
+              <Button icon="alien" mode="text" labelStyle={{ color: 'blueviolet' }} onPress={() => console.log('Pressed')}>
+                Alien
+              </Button>
+              <Button icon="alien" mode="text" labelStyle={{ color: 'blueviolet' }} onPress={() => console.log('Pressed')}>
+                Alien
+              </Button>
+            </View>
           </Section>
-          <Section title="Debug">
-            <DebugInstructions />
+          <Section style={styles.sectionTitle} title='Switch necesites un descans'>
+            <Switch value={isSwitchOn} style={styles.switch} color='red' onValueChange={onToggleSwitch} />
           </Section>
-          <Section title="Saber Mes">
-            Read the docs to discover what to do next:
+          <Section style={styles.sectionTitle} title='Provant chips'>
+
+            <View style={{ flexDirection: 'row' }}>
+              <Chip icon="information" mode='outlines' style={styles.chip1} onPress={() => console.log('Pressed')}>Internet</Chip>
+              <Chip icon="wifi" mode='outlines' style={styles.chip2} onPress={() => console.log('Pressed')}>WI-FI</Chip>
+            </View>
           </Section>
-          <LearnMoreLinks />
+          <Section style={styles.sectionTitle} title='Boto de un component Surface'>
+            <Surface style={styles.surface} elevation={4}>
+              <Button icon="alien" mode="contained" style={styles.butonet} onPress={() => console.log('Pressed')}>
+                Press me
+              </Button>
+            </Surface>
+          </Section>
         </View>
-      </ScrollView>
-    </View>
+      </ScrollView >
+    </View >
   );
 };
 
@@ -112,6 +135,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
+    color: 'black'
   },
   sectionDescription: {
     marginTop: 8,
@@ -121,6 +145,29 @@ const styles = StyleSheet.create({
   highlight: {
     fontWeight: '700',
   },
+  switch: {
+    alignSelf: 'center'
+  },
+  chip1: {
+    marginLeft: 20,
+    width: 95,
+    textAlign: 'center',
+  },
+  chip2: {
+    width: 80,
+    textAlign: 'center',
+  },
+  surface: {
+    padding: 8,
+    height: 80,
+    width: 80,
+    justifyContent: 'center',
+  },
+  butonet: {
+    width: 370,
+    height: 50,
+
+  }
 });
 
 export default App;
