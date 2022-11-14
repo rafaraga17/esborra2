@@ -7,10 +7,7 @@
  */
 
 import React, { useState } from 'react';
-import { Switch } from 'react-native-paper';
-import { TextInput, Button } from 'react-native-paper';
-import { Chip } from 'react-native-paper';
-import { Surface } from 'react-native-paper';
+import { Provider as RafaProvider, TextInput, Button, Switch, Chip, Surface } from 'react-native-paper';
 
 import {
   SafeAreaView,
@@ -57,73 +54,30 @@ const Section = ({ children, title }) => {
   );
 };
 
+const saluda = (props) => {
+  return <Text style={{ color: 'blue', fontSize: 25 }}>Hola {props}</Text>;
+};
+const saluda2 = () => {
+  return (
+    <View>
+      {saluda('Rafa Raga')}
+      {saluda('Alex pelotas')}
+    </View>
+  );
+}
+
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
-  const [text, setText] = useState("");
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
-
-  const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  const isOnePiece = true;
 
   return (
-    <View>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section style={styles.sectionTitle} title='TextInput(email)'>
-
-            <TextInput
-              mode='outlined'
-              placeholder='                                                                                   ' />
-          </Section>
-          <Section style={styles.sectionTitle} title='Button(amb text i icona)'>
-            <View style={{ flexDirection: 'column', justifyContent:'center' }}>
-
-              <Button icon="alien" uppercase={false} mode="contained" onPress={() => console.log('Pressed')}>
-                Alien
-              </Button>
-              <Button icon="alien" mode="contained" labelStyle={{ color: 'black' }} onPress={() => console.log('Pressed')}>
-                Alien
-              </Button>
-              <Button icon="alien" mode="text" labelStyle={{ color: 'blueviolet' }} onPress={() => console.log('Pressed')}>
-                Alien
-              </Button>
-              <Button icon="alien" mode="text" labelStyle={{ color: 'blueviolet' }} onPress={() => console.log('Pressed')}>
-                Alien
-              </Button>
-            </View>
-          </Section>
-          <Section style={styles.sectionTitle} title='Switch necesites un descans'>
-            <Switch value={isSwitchOn} style={styles.switch} color='red' onValueChange={onToggleSwitch} />
-          </Section>
-          <Section style={styles.sectionTitle} title='Provant chips'>
-
-            <View style={{ flexDirection: 'row' }}>
-              <Chip icon="information" mode='outlines' style={styles.chip1} onPress={() => console.log('Pressed')}>Internet</Chip>
-              <Chip icon="wifi" mode='outlines' style={styles.chip2} onPress={() => console.log('Pressed')}>WI-FI</Chip>
-            </View>
-          </Section>
-          <Section style={styles.sectionTitle} title='Boto de un component Surface'>
-            <Surface style={styles.surface} elevation={4}>
-              <Button icon="alien" mode="contained" style={styles.butonet} onPress={() => console.log('Pressed')}>
-                Press me
-              </Button>
-            </Surface>
-          </Section>
-        </View>
-      </ScrollView >
-    </View >
+    <RafaProvider>
+      {isOnePiece && saluda('Alex Pelotas')}
+    </RafaProvider>
   );
 };
 
